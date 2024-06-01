@@ -1,0 +1,108 @@
+#include <iostream>
+#include <iomanip>
+#include <vector>
+using namespace std;
+
+void fahrenheitToCelsius(double &tempF) {
+    tempF = (tempF - 32) * 5.0 / 9.0;
+}
+
+void func(int *ptr_1, int *ptr_2) {
+    *ptr_2 = 7 * (*ptr_1) - 5;
+}
+
+int countDuplicates(int *arr, int n) {
+    int count = 0;
+    for (int *i = arr; i < arr + n; ++i) {
+        for (int *j = i + 1; j < arr + n; ++j) {
+            if (*i == *j) {
+                ++count;
+                break;
+            }
+        }
+    }
+    return count;
+}
+
+int maxElement(int *arr, int size) {
+    int maxVal = *arr;
+    for (int *ptr = arr; ptr < arr + size; ++ptr) {
+        if (*ptr > maxVal) {
+            maxVal = *ptr;
+        }
+    }
+    return maxVal;
+}
+
+int main() {
+    cout << "Problem 1\n";
+    double fahrenheit;
+    cout << "Enter temperature in Fahrenheit: ";
+    cin >> fahrenheit;
+    fahrenheitToCelsius(fahrenheit);
+    cout << fixed << setprecision(4);
+    cout << "Temperature in Celsius: " << fahrenheit << endl;
+
+    cout << "Problem 2\n";
+    vector<int> values;
+    int input;
+    cout << "Enter values (0 to stop): ";
+    while (cin >> input && input != 0) {
+        values.push_back(input);
+    }
+    for (int &value : values) {
+        value = (value % 2 == 0) ? 2 : 1;
+    }
+    for (const int &value : values) {
+        cout << value << " ";
+    }
+    cout << endl;
+
+    cout << "Problem 3\n";
+    int x, y;
+    cout << "Enter value for x: ";
+    cin >> x;
+    int *ptr_1 = &x;
+    int *ptr_2 = &y;
+    func(ptr_1, ptr_2);
+    cout << "X: " << x << endl;
+    cout << "Y: " << y << endl;
+
+    cout << "Problem 4\n";
+    int n4;
+    cout << "Enter the size of the array: ";
+    cin >> n4;
+    int *arr = new int[n4];
+    cout << "Enter the elements of the array: ";
+    for (int *i = arr; i < arr + n4; ++i) {
+        cin >> *i;
+    }
+    int duplicateCount = countDuplicates(arr, n4);
+    cout << "Number of duplicates: " << duplicateCount << endl;
+    delete[] arr;
+
+    cout << "Problem 5\n";
+    int n1, n2;
+    cout << "Enter the size of the first array: ";
+    cin >> n1;
+    int *arr1 = new int[n1];
+    cout << "Enter the elements of the first array: ";
+    for (int *i = arr1; i < arr1 + n1; ++i) {
+        cin >> *i;
+    }
+    cout << "Enter the size of the second array: ";
+    cin >> n2;
+    int *arr2 = new int[n2];
+    cout << "Enter the elements of the second array: ";
+    for (int *i = arr2; i < arr2 + n2; ++i) {
+        cin >> *i;
+    }
+    int max1 = maxElement(arr1, n1);
+    int max2 = maxElement(arr2, n2);
+    int result = max1 * max2;
+    cout << "The result of multiplying the maximum elements is: " << result << endl;
+    delete[] arr1;
+    delete[] arr2;
+
+    return 0;
+}
